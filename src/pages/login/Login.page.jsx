@@ -49,6 +49,7 @@ class Login extends Component {
         isLoading: false,
       };
     } catch (error) {
+      this.toggleLoading();
       swal({
         title: "Error",
         text: "The email/password entered is not valid",
