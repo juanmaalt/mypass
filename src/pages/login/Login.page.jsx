@@ -4,7 +4,11 @@ import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import { CustomButton } from "../../components/customButton/CustomButton.component";
 import { Container, LoginForm, InputDivStyle } from "./Login.style";
+import WithSpinner from "../../components/withSpinner/WithSpinner.component";
 import { MdAccountBox, MdLock } from "react-icons/md";
+import swal from "sweetalert";
+
+const ContainerWithSpinner = WithSpinner(Container);
 
 class Login extends Component {
   constructor(props) {
@@ -13,10 +17,17 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      isLoading: false,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  toggleLoading() {
+    this.setState({
+      isLoading: !this.state.isLoading,
+    });
   }
 
   onChange(event) {
@@ -29,20 +40,26 @@ class Login extends Component {
     const { email, password } = this.state;
 
     try {
+      this.toggleLoading();
       await auth.signInWithEmailAndPassword(email, password);
 
       this.setState = {
         email: "",
         password: "",
+        isLoading: false,
       };
     } catch (error) {
-      console.log(error);
+      swal({
+        title: "Error",
+        text: "The email/password entered is not valid",
+        icon: "error",
+      });
     }
   }
 
   render() {
     return (
-      <Container>
+      <ContainerWithSpinner isLoading={this.state.isLoading}>
         <h2 style={{ fontSize: "2em" }}>MyPass</h2>
         <LoginForm onSubmit={this.onSubmit}>
           <InputDivStyle>
@@ -73,7 +90,7 @@ class Login extends Component {
           <CustomButton onClick={signInWithGoogle}>Sign with Google</CustomButton>
           <Link to="/register">You don´t have an account? Register</Link>
         */}
-      </Container>
+      </ContainerWithSpinner>
     );
   }
 }
