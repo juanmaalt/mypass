@@ -27,7 +27,8 @@ class ItemView extends Component {
   }
 
   render() {
-    const { id, title, email, user, password, hidden } = this.props;
+    const { id, title, email, user, password, hidden, params } = this.props;
+    const general = params.TYPE_X;
 
     return (
       <ItemViewStyle key={id}>
@@ -35,14 +36,14 @@ class ItemView extends Component {
           <>
             <OptionsBar id={id} title={title} />
             <div>
-              <p>Email: {Decode(email, 1)}</p>
-              <p>User: {Decode(user, 2)}</p>
+              <p>Email: {Decode(email, general, params.TYPE_A)}</p>
+              <p>User: {Decode(user, general, params.TYPE_B)}</p>
               <PasswordStyle>
                 <p>
                   Password:{" "}
-                  {this.state.isVisible ? Decode(password, 3) : "******"}
+                  {this.state.isVisible ? Decode(password, general, params.TYPE_C) : "******"}
                 </p>
-                <CopyToClipboard text={Decode(password, 3)}>
+                <CopyToClipboard text={Decode(password, general, params.TYPE_C)}>
                   <MdContentCopy />
                 </CopyToClipboard>
                 {this.state.isVisible ? (
@@ -68,6 +69,7 @@ ItemView.propTypes = {
   user: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   hidden: PropTypes.bool.isRequired,
+  params: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -77,6 +79,7 @@ const mapStateToProps = (state) => ({
   user: state.item.user,
   password: state.item.password,
   hidden: state.item.hidden,
+  params: state.keys,
 });
 
 export default connect(mapStateToProps, null)(ItemView);

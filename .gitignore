@@ -3,4 +3,4 @@ builds
 dist
 src/firebase/config.firebase.js
 src/components/code
-src/assets/Params.js
+src/redux/keys

@@ -11,6 +11,7 @@ import { HomeStyle, HomeContainerStyle } from "./Home.style";
 import Header from "../../components/header/Header.component";
 import ItemsList from "../../components/itemsList/ItemsList.component";
 import { updateCollection } from "../../redux/collection/collection.actions";
+import { updateKeys } from "../../redux/keys/keys.actions";
 import {
   firestore,
   convertCollectionsSnapshotToMap,
@@ -33,8 +34,13 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.hideItem();
-    const { updateCollection, currentUser } = this.props;
+    const { updateCollection, updateKeys, currentUser } = this.props;
+    const keysRef = firestore.collection("keys");
     const collectionsRef = firestore.collection(currentUser.id);
+
+    keysRef.onSnapshot(async (snapshot) => {
+      updateKeys(snapshot.docs[0].data());
+    });
 
     collectionsRef.onSnapshot(async (snapshot) => {
       const collectionMap = convertCollectionsSnapshotToMap(snapshot);
@@ -94,6 +100,7 @@ Home.propTypes = {
   currentUser: PropTypes.object,
   hideItem: PropTypes.func.isRequired,
   updateCollection: PropTypes.func.isRequired,
+  updateKeys: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -105,6 +112,7 @@ const mapDispatchToProps = (dispatch) => ({
   hideItem: () => dispatch(hideItem()),
   updateCollection: (collectionMap) =>
     dispatch(updateCollection(collectionMap)),
+  updateKeys: (collection) => dispatch(updateKeys(collection)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

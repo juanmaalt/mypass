@@ -57,14 +57,15 @@ class New extends Component {
   onSubmit() {
     event.preventDefault();
     const { title, email, user, password } = this.state;
-    const { currentUser } = this.props;
+    const { currentUser, params } = this.props;
+    const general = params.TYPE_X;
 
     const newDoc = {
       id: undefined,
       title: title,
-      email: Code(email, 1),
-      user: Code(user, 2),
-      password: Code(password, 3),
+      email: Code(email, general, params.TYPE_A),
+      user: Code(user, general, params.TYPE_B),
+      password: Code(password, general, params.TYPE_C),
     };
 
     updateDocument(newDoc, currentUser.id);
@@ -148,10 +149,12 @@ New.propTypes = {
   currentUser: PropTypes.object.isRequired,
   updateDocument: PropTypes.func.isRequired,
   updateCollection: PropTypes.func.isRequired,
+  params: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
+  params: state.keys,
 });
 
 const mapDispatchToProps = (dispatch) => ({
