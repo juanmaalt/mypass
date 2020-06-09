@@ -27,7 +27,7 @@
   "scripts": {
     "prod": "webpack --mode production --config webpack.build.config.js && electron --noDevServer .",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
-    "build": "webpack --config webpack.dev.config.js --mode production",
+    "build": "webpack --config webpack.build.config.js --mode production",
     "pack-lin": "electron-packager . MyPass --platform=linux --arch=x64 --no-prune",
     "pack-win": "electron-packager . MyPass --platform=win32 --arch=x64 --no-prune --out=./builds --overwrite",
     "pack-mac": "electron-packager . MyPass --platform=darwin --arch=x64 --no-prune --out=./builds --overwrite",
@@ -59,7 +59,6 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
-    "babili-webpack-plugin": "^0.1.2",
     "css-loader": "^3.5.3",
     "electron": "^8.2.5",
     "electron-builder": "^22.6.1",
@@ -70,6 +69,7 @@
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^3.0.3",
     "webpack": "^4.43.0",
     "webpack-dev-server": "^3.11.0"
   }
