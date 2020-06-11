@@ -88,7 +88,6 @@ class Login extends Component {
           <CustomButton type="submit">Sign in</CustomButton>
         </LoginForm>
         {/*
-          <CustomButton onClick={signInWithGoogle}>Sign with Google</CustomButton>
           <Link to="/register">You don´t have an account? Register</Link>
         */}
       </ContainerWithSpinner>

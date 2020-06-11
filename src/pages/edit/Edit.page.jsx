@@ -41,14 +41,15 @@ class Edit extends Component {
   }
 
   componentDidMount() {
-    const { id, title, email, user, password } = this.props;
+    const { id, title, email, user, password, params } = this.props;
+    const general = params.TYPE_X;
 
     this.setState({
       id: id,
       title: title,
-      email: Decode(email, 1),
-      user: Decode(user, 2),
-      password: Decode(password, 3),
+      email: Decode(email, general, params.TYPE_A),
+      user: Decode(user, general, params.TYPE_B),
+      password: Decode(password, general, params.TYPE_C),
     });
   }
 
@@ -70,14 +71,15 @@ class Edit extends Component {
   async onSubmit() {
     event.preventDefault();
     const { id, title, email, user, password } = this.state;
-    const { currentUser } = this.props;
+    const { currentUser, params } = this.props;
+    const general = params.TYPE_X;
 
     const updatedDoc = {
       id: id,
       title: title,
-      email: Code(email, 1),
-      user: Code(user, 2),
-      password: Code(password, 3),
+      email: Code(email, general, params.TYPE_A),
+      user: Code(user, general, params.TYPE_B),
+      password: Code(password, general, params.TYPE_C),
     };
 
     await updateDocument(updatedDoc, currentUser.id);
@@ -175,6 +177,7 @@ Edit.propTypes = {
   user: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   updateDocument: PropTypes.func.isRequired,
+  params: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -184,6 +187,7 @@ const mapStateToProps = (state) => ({
   email: state.item.email,
   user: state.item.user,
   password: state.item.password,
+  params: state.keys,
 });
 
 const mapDispatchToProps = (dispatch) => ({
