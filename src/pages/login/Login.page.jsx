@@ -11,8 +11,7 @@ import {
   InputDivStyle,
 } from "./Login.style";
 import WithSpinner from "../../components/withSpinner/WithSpinner.component";
-import { FaRegWindowMinimize, FaRegWindowClose } from "react-icons/fa";
-import { MdAccountBox, MdLock } from "react-icons/md";
+import { MdClear, MdRemove, MdAccountBox, MdLock } from "react-icons/md";
 import swal from "sweetalert";
 
 const ContainerWithSpinner = WithSpinner(Container);
@@ -79,8 +78,8 @@ class Login extends Component {
     return (
       <ContainerWithSpinner isLoading={this.state.isLoading}>
         <AppBar>
-          <FaRegWindowClose onClick={this.onCloseWindow} />
-          <FaRegWindowMinimize onClick={this.onMinimizeWindow} />
+          <MdClear onClick={this.onCloseWindow} />
+          <MdRemove onClick={this.onMinimizeWindow} />
         </AppBar>
         <FormContainer>
           <h2 style={{ fontSize: "2em" }}>MyPass</h2>

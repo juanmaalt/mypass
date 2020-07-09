@@ -11,12 +11,12 @@ export const AppBar = styled.div`
   flex-direction: row-reverse;
   align-items: center;
   margin-right: 10px;
-  /* justify-items: center; */
   height: 10vh;
 
   svg {
     font-size: 1.8em;
     margin-right: 15px;
+    cursor: pointer;
   }
 `;
 
