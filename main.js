@@ -1,17 +1,17 @@
 "use strict";
 
 // Import parts of electron to use
-const { app, BrowserWindow, session} = require("electron");
+const { app, BrowserWindow, session } = require("electron");
 const path = require("path");
 const url = require("url");
 
 // Add React extension for development
-/*
-const {
-  default: installExtension,
-  REACT_DEVELOPER_TOOLS,
-} = require("electron-devtools-installer");
-*/
+
+// const {
+//   default: installExtension,
+//   REACT_DEVELOPER_TOOLS,
+// } = require("electron-devtools-installer");
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -38,9 +38,14 @@ if (process.platform === "win32") {
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800, // width of the window
+    width: 600, // width of the window
     height: 600, // height of the window
     show: false, // don't show until window is ready
+    title: "MyPass",
+    resizable: false,
+    movable: true,
+    frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: true,
       nativeWindowOpen: true,

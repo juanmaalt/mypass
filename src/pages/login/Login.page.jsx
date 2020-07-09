@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+const remote = require("electron").remote;
+import { auth } from "../../firebase/firebase.utils";
 
 import { CustomButton } from "../../components/customButton/CustomButton.component";
-import { Container, LoginForm, InputDivStyle } from "./Login.style";
+import {
+  AppBar,
+  Container,
+  FormContainer,
+  LoginForm,
+  InputDivStyle,
+} from "./Login.style";
 import WithSpinner from "../../components/withSpinner/WithSpinner.component";
+import { FaRegWindowMinimize, FaRegWindowClose } from "react-icons/fa";
 import { MdAccountBox, MdLock } from "react-icons/md";
 import swal from "sweetalert";
 
@@ -58,38 +65,54 @@ class Login extends Component {
     }
   }
 
+  onCloseWindow() {
+    let window = remote.getCurrentWindow();
+    window.close();
+  }
+
+  onMinimizeWindow() {
+    let window = remote.getCurrentWindow();
+    window.minimize();
+  }
+
   render() {
     return (
       <ContainerWithSpinner isLoading={this.state.isLoading}>
-        <h2 style={{ fontSize: "2em" }}>MyPass</h2>
-        <LoginForm onSubmit={this.onSubmit}>
-          <InputDivStyle>
-            <MdAccountBox />
-            <input
-              name="email"
-              type="email"
-              label="Email"
-              value={this.state.email}
-              onChange={this.onChange}
-              required
-            />
-          </InputDivStyle>
-          <InputDivStyle>
-            <MdLock />
-            <input
-              name="password"
-              type="password"
-              label="Password"
-              value={this.state.password}
-              onChange={this.onChange}
-              required
-            />
-          </InputDivStyle>
-          <CustomButton type="submit">Sign in</CustomButton>
-        </LoginForm>
-        {/*
+        <AppBar>
+          <FaRegWindowClose onClick={this.onCloseWindow} />
+          <FaRegWindowMinimize onClick={this.onMinimizeWindow} />
+        </AppBar>
+        <FormContainer>
+          <h2 style={{ fontSize: "2em" }}>MyPass</h2>
+          <LoginForm onSubmit={this.onSubmit}>
+            <InputDivStyle>
+              <MdAccountBox />
+              <input
+                name="email"
+                type="email"
+                label="Email"
+                value={this.state.email}
+                onChange={this.onChange}
+                required
+              />
+            </InputDivStyle>
+            <InputDivStyle>
+              <MdLock />
+              <input
+                name="password"
+                type="password"
+                label="Password"
+                value={this.state.password}
+                onChange={this.onChange}
+                required
+              />
+            </InputDivStyle>
+            <CustomButton type="submit">Sign in</CustomButton>
+          </LoginForm>
+          {/*
           <Link to="/register">You don´t have an account? Register</Link>
         */}
+        </FormContainer>
       </ContainerWithSpinner>
     );
   }
