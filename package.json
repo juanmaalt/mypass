@@ -60,7 +60,7 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
-    "electron": "^8.4.0",
+    "electron": "^13.6.6",
     "electron-builder": "^22.7.0",
     "electron-devtools-installer": "^3.1.0",
     "electron-packager": "^14.2.1",
